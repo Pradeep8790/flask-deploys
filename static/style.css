@@ -1,0 +1,143 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"); */
+
+* {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #202123;
+    color: white;
+    
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.left {
+    background: #202123;
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+}
+
+.new-chat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+.new-chat:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.right {
+    background:#343541;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: flex-end; */
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.right h1 {
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+.messages {
+    flex-grow: 1;
+    overflow-y: auto; 
+    padding: 10px;
+    background-color: #343541;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    
+}
+
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    width: fit-content;
+    max-width: 80%;
+    word-break: break-word;
+    align-self: flex-end;
+    color: black;
+}
+
+.question {
+    align-self: flex-end;
+    background-color: lightgray;
+    text-align: right;
+    padding: 10px;
+    margin-left: auto; /* Align to the right side */
+    max-width: 80%; /* Limit the width */
+}
+
+
+.response {
+    align-self: flex-start;
+    background-color:white;
+    text-align: right;
+    padding: 10px;
+    /* margin-left: auto; Align to the right side */
+    max-width: 80%; /* Limit the width */
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Space between icon and text */
+}
+
+
+.input {
+    width: 80%;
+    position: fixed;
+    bottom: 15px;
+    left: 10%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.chat_input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background-color: #40414f;
+    color: white;
+    resize: none; /* Prevent manual resize */
+    overflow: auto; /* Allow scrolling */
+    max-height: 50px; /* Max height for the input area */
+    margin-right: 0px;
+}
+
+.sendButton,
+.clearButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 10px;
+    color: white;
+}
+
+.sendButton i,
+.clearButton i {
+    font-size: 20px;
+}

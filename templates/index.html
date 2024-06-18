@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AATMA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- left -->
+        <div class="left">
+            <div class="new-chat">
+                <i class="bi bi-plus"></i>
+                <p>New Chat</p>
+            </div>
+        </div>
+        <!-- right -->
+        <div class="right">
+            <h1>Droit</h1>
+            <div class="messages" id="messages"></div>
+            <!-- input bar -->
+            <div class="input">
+                <textarea id="messageInput" class="chat_input" placeholder="Enter your text..."></textarea>
+                <button onclick="sendMessage()" class="button sendButton"><i class="bi bi-send"></i></button>
+                <button onclick="clearOutput()" class="button clearButton"><i class="bi bi-trash3"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var messageInput = document.getElementById("messageInput");
+            var message = messageInput.value.trim();
+            if (message !== '') {
+                addMessage(message, 'question');
+                $.ajax({
+                    url: '/send_message',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ message: message }),
+                    success: function(data) {
+                        addMessage(data.response, 'response');
+                        scrollMessagesToBottom();
+                    },
+                    error: function(error) {
+                        console.log('Error:', error);
+                    }
+                });
+                messageInput.value = '';
+                autoResizeInput(messageInput);
+                scrollMessagesToBottom();
+            }
+        }
+
+        function addMessage(text, type) {
+            var messagesDiv = document.getElementById("messages");
+            var messageDiv = document.createElement("div");
+            messageDiv.classList.add("message", type);
+            messageDiv.innerText = text;
+            messagesDiv.appendChild(messageDiv);
+        }
+
+        function scrollMessagesToBottom() {
+            var messagesDiv = document.getElementById("messages");
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function clearOutput() {
+            document.getElementById('messages').innerHTML = '';
+            document.getElementById('messageInput').value = '';
+            autoResizeInput(document.getElementById('messageInput'));
+        }
+
+        function autoResizeInput(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+        }
+
+        document.getElementById("messageInput").addEventListener("input", function() {
+            autoResizeInput(this);
+        });
+
+        document.getElementById("messageInput").addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
