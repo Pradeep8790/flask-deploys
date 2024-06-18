@@ -13,5 +13,3 @@ def handle_message():
     response = f"{message}"  # Simple echo response
     return jsonify({'response': response})
 
-if __name__ == '__main__':
-    app.run()
